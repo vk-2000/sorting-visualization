@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main">
+        <div class="control elevatedBox">
+            <div class="logo">
+                <div>Sorting Visualization</div>
+            </div>
+            <div class="algoDrop">
+                <div class="algoDisplay">Select Algorithm</div>
+                <div class="algos hidden">
+                    <div>Selection Sort</div>
+                    <div>Bubble sort</div>
+                    <div>Insertion sort</div>
+                    <div>Merge sort</div>
+                    <div>Quick sort</div>
+                    <div>Heap sort</div>
+                </div>
+            </div>
+            
+
+        </div>
+        <div class="area">
+            <div class="info">
+                <div class="arrayControl elevatedBox">
+                    <div class="selectN">
+                        <div>Enter no of elements : </div>
+                        <input type="number">
+                    </div>
+                    <button class="createArray">Generate best case</button>
+                    <button class="createArray">Generate worst case</button>
+                    <button class="generateRandom">Generate Random</button>
+                    <button class="sort">Sort</button>
+                </div>
+                <div class="speedControlsContainer elevatedBox">
+                    <div>Speed</div>
+                    <button class="speedUp">+</button>
+                    <button class="speedDown">-</button>
+                </div>
+            </div>
+            
+            <div class="container elevatedBox"></div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="module" src="./js/script.js"></script>
+</body>
+</html>
