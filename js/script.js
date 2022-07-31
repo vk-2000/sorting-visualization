@@ -99,6 +99,7 @@ $(document).ready(function () {
       case 2:
         Sorting.insertionSort(array, animationInfo);
         animate = new Animation(animationInfo, arrayDiv, 100);
+        animate.setSortedArray(array);
         animate.animate();
         break;
       case 3:
