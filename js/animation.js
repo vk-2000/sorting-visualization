@@ -1,129 +1,70 @@
-
 export default class Animation {
-    constructor(animationInfo, arrayDiv, speed){
-        this.animationInfo = animationInfo;
-        this.arrayDiv = arrayDiv;
-        this.speed = speed;
-    }
-    setSortedArray(sortedArray){
-        this.sortedArray = sortedArray;
-    }
-    setArrayCopy(arrayCopy){
-        this.arrayCopy = arrayCopy;
-    }
-    increaseSpeed(by){
-        this.speed-=by;
-    }
-    decreaseSpeed(by){
-        this.speed+=by;
-    }
+  constructor(animationInfo, arrayDiv, speed) {
+    this.animationInfo = animationInfo;
+    this.arrayDiv = arrayDiv;
+    this.speed = speed;
+  }
+  setSortedArray(sortedArray) {
+    this.sortedArray = sortedArray;
+  }
+  setArrayCopy(arrayCopy) {
+    this.arrayCopy = arrayCopy;
+  }
+  increaseSpeed(by) {
+    this.speed -= by;
+  }
+  decreaseSpeed(by) {
+    this.speed += by;
+  }
 
-    #sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
+  #sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
 
-    async animateCompareAndSwap(){
-        let n = this.animationInfo.length;
-        for(let i=0; i<n; i++){
-            let x = this.animationInfo[i][1];
-            let y = this.animationInfo[i][2];
-            let op = this.animationInfo[i][0];
-    
-            if(i !== 0) {
-                let p_x = this.animationInfo[i-1][1];
-                let p_y = this.animationInfo[i-1][2];
-    
-                $(this.arrayDiv[p_x]).css({"backgroundColor":"black"});
-                $(this.arrayDiv[p_y]).css({"backgroundColor":"black"});
-    
-                if($(this.arrayDiv[p_x]).height() == this.sortedArray[p_x]){
-                    $(this.arrayDiv[p_x]).css({"backgroundColor":"green"});
-                }
-                if($(this.arrayDiv[p_y]).height() == this.sortedArray[p_y]){
-                    $(this.arrayDiv[p_y]).css({"backgroundColor":"green"});
-                }
-                
-            }
-    
-            if(op === 1){
-                let h = $(this.arrayDiv[x]).height();
-                $(this.arrayDiv[x]).height($(this.arrayDiv[y]).height());
-                $(this.arrayDiv[y]).height(h);
-                $(this.arrayDiv[x]).css({"backgroundColor":"red"});
-                $(this.arrayDiv[y]).css({"backgroundColor":"red"});
-    
-                
-            }
-            else {
-                $(this.arrayDiv[x]).css({"backgroundColor":"red"});
-                $(this.arrayDiv[y]).css({"backgroundColor":"red"});
-            }
-    
-            await this.#sleep(this.speed);
-    
+  // animationInfo array contains operations to be performed on the bars to animate it
+  // [0, x, y] --> compare bars at poitions x and y
+  // [1, x, y] --> swap bars at position x and y
+  // [2, x, y] --> change the height of bar at position x to y
+  async animate() {
+    let n = this.animationInfo.length;
+    console.log(this.animationInfo);
+    // red array contains the positions of bars which were made red in the previous operation
+    let red = [];
+    for (let i = 0; i < n; i++) {
+      let op = this.animationInfo[i][0];
+      let x = this.animationInfo[i][1];
+      let y = this.animationInfo[i][2];
+
+      for (const r of red) {
+        $(this.arrayDiv[r]).css({ backgroundColor: "black" });
+        if ($(this.arrayDiv[r]).height() == this.sortedArray[r]) {
+          $(this.arrayDiv[r]).css({ backgroundColor: "green" });
         }
-    
-    
-    }
-    // merge positions and previous state of the array stored in info
-    async animateMerge(){
-        let n = this.animationInfo.length;
-        let arr = []
-        for(let i=0; i<n; i++){
-    
-            if(i !== 0){
-                arr = this.animationInfo[i-1][0];
-                let merges = this.animationInfo[i-1][1];
-                for(let k=0; k<merges.length; k++){
-                    $(this.arrayDiv[merges[k][0]]).css({"backgroundColor":"black"});
-                }
-            }
-            else{
-                arr = Array.from(this.arrayCopy)
-            }
-            let merges = this.animationInfo[i][1];
-    
-            for(let k=0; k<merges.length; k++){
-                let a = merges[k][0];
-                let b = merges[k][1];
-                $(this.arrayDiv[a]).height(arr[b]);
-                $(this.arrayDiv[a]).css({"backgroundColor":"red"});
-            }
-            await this.#sleep(this.speed);
-        }
-        for(let i=0; i<this.arrayDiv.length; i++){
-            $(this.arrayDiv[i]).css({"backgroundColor":"green"});
-        }
-    }
-    
-    async animationInsertion(){
-        let n = this.animationInfo.length;
-        for(let i=0; i<n; i++){
-    
-            if(i !== 0){
-                let x = this.animationInfo[i-1][0];
-                let y = this.animationInfo[i-1][1];
-                $(this.arrayDiv[x]).css({"backgroundColor":"black"});
-                $(this.arrayDiv[y]).css({"backgroundColor":"black"});
-    
-            }
-    
-            
-            let x = this.animationInfo[i][0];
-            let y = this.animationInfo[i][1];
-            let val = this.animationInfo[i][2];
-    
-            $(this.arrayDiv[y]).height(val);
-            $(this.arrayDiv[x]).css({"backgroundColor":"red"});
-            $(this.arrayDiv[y]).css({"backgroundColor":"red"});
-    
-            await this.#sleep(this.speed);
-    
-        }
-    }
+      }
 
+      if (op === 0) {
+        $(this.arrayDiv[x]).css({ backgroundColor: "red" });
+        $(this.arrayDiv[y]).css({ backgroundColor: "red" });
+        red = [];
+        red.push(x);
+        red.push(y);
+      } else if (op === 1) {
+        let h = $(this.arrayDiv[x]).height();
+        $(this.arrayDiv[x]).height($(this.arrayDiv[y]).height());
+        $(this.arrayDiv[y]).height(h);
+        $(this.arrayDiv[x]).css({ backgroundColor: "red" });
+        $(this.arrayDiv[y]).css({ backgroundColor: "red" });
+        red = [];
+        red.push(x);
+        red.push(y);
+      } else if (op === 2) {
+        $(this.arrayDiv[x]).height(y);
+        $(this.arrayDiv[x]).css({ backgroundColor: "red" });
+        red = [];
+        red.push(x);
+      }
 
-
+      await this.#sleep(this.speed);
+    }
+  }
 }
-
-
