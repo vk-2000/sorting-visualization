@@ -8,6 +8,7 @@ let array = [];
 let arrayCopy;
 let arrayDiv;
 let animate;
+let baseColor = "#1d3557";
 
 function createRandomArray(n) {
   array = [];
@@ -25,7 +26,7 @@ function createDivs(array) {
     let div = document.createElement("div");
     $(div).css({
       height: array[i],
-      background: "black",
+      background: baseColor,
       width: widthDiv,
       margin: "1px",
     });
@@ -45,7 +46,7 @@ $(document).ready(function () {
   arrayContainer = $(".container");
   algoDrop.click(function (e) {
     e.preventDefault();
-    algoSelector.toggleClass("hidden");
+    algoSelector.slideToggle("fast");
   });
 
   algoList.click(function () {
@@ -73,57 +74,38 @@ $(document).ready(function () {
   });
 
   $(".sort").click(function () {
+    animate = null;
     if (algoNumber == -1) {
       alert("Select algorithm");
       return;
     }
-    let comparisions = 0;
-    let swaps = 0;
     let animationInfo = [];
 
     switch (algoNumber) {
       case 0:
         Sorting.selectionSort(array, animationInfo);
-        animate = new Animation(animationInfo, arrayDiv, 100);
-        animate.setSortedArray(array);
-        animate.animate();
-
-        // Animation.animateCompareAndSwap(animationInfo, arrayDiv, array);
         break;
       case 1:
         Sorting.bubbleSort(array, animationInfo);
-        animate = new Animation(animationInfo, arrayDiv, 100);
-        animate.setSortedArray(array);
-        animate.animate();
         break;
       case 2:
         Sorting.insertionSort(array, animationInfo);
-        animate = new Animation(animationInfo, arrayDiv, 100);
-        animate.setSortedArray(array);
-        animate.animate();
         break;
       case 3:
         Sorting.mergeSort(array, 0, array.length - 1, animationInfo);
-        console.log(animationInfo);
-        animate = new Animation(animationInfo, arrayDiv, 100);
-        animate.setSortedArray(array);
-        animate.animate();
         break;
       case 4:
         Sorting.quickSort(array, 0, array.length - 1, animationInfo);
-        animate = new Animation(animationInfo, arrayDiv, 100);
-        animate.setSortedArray(array);
-        animate.animate();
         break;
       case 5:
         Sorting.heapSort(array, animationInfo);
-        animate = new Animation(animationInfo, arrayDiv, 100);
-        animate.setSortedArray(array);
-        animate.animate();
         break;
       default:
         break;
     }
+    animate = new Animation(animationInfo, arrayDiv, 100, array);
+    console.log(animationInfo);
+    animate.animate();
   });
 });
 

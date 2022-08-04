@@ -4,6 +4,7 @@
 body {
     background-color: whitesmoke;
     padding: 0 20px;
+    font-family: 'Roboto', sans-serif;
 }
 .control{
     display: flex;
@@ -13,17 +14,19 @@ body {
     height: 10vh;
 }
 .logo > div {
-    font-size: larger;
+    font-size: 2rem;
     padding: 50px;
+    font-family: 'Oswald', sans-serif;
 }
 .algoDrop{
-    background-color: aliceblue;
+    /* background-color: aliceblue; */
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     flex-basis: 45%;
+    margin: 10px;
 }
 .algos{
     display: flex;
@@ -32,14 +35,14 @@ body {
     top: 100%;
     width: 100%;
     text-align: center;
-    background-color: rgb(240, 239, 239);
+    background-color: #f1faee;
     z-index: 1;
 }
 .algos > div {
     padding: 10px; 
 }
 .algos > div:hover {
-    background-color: rgb(194, 191, 191);
+    background-color: #a8dadc;
 }
 .hidden{
     display: none;
@@ -61,7 +64,7 @@ body {
     border-radius: 10px;
     box-shadow: 2px 2px 10px rgb(194, 193, 193);
     background-color: white;
-    margin : 10px;
+    /* margin : 10px; */
 }
 .info{
     display: flex;
@@ -70,6 +73,9 @@ body {
     align-items: center;
     height: 85vh;
 }
+
+
+
 .arrayControl{
     display: flex;
     flex-direction: column;
@@ -78,6 +84,20 @@ body {
     padding: 10px;
     flex-basis: 60%;
     width: 100%;
+    margin-bottom: 10px;
+}
+.selectN {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.selectN > div {
+    margin: 5px 0px;
+}
+.selectN > input {
+    text-align: center;
+    margin: 5px 0px;
 }
 .speedControlsContainer{
     display: flex;
@@ -94,29 +114,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 85vh;
+    margin: 10px 0px 10px 10px;
 }
-
-/* .bar:hover:after{
-    display: -webkit-flex;
-    display: flex;
-    -webkit-justify-content: center;
-    justify-content: center;
-    background: #444;
-    border-radius: 8px;
-    color: #fff;
-    content: attr(value);
-    margin: -50px auto 0;
-    font-size: 16px;
-    padding: 13px;
-    width: 10px;
-    z-index: 1;
-  }
-  .bar:hover:before{
-    border: solid;
-    border-color: #444 transparent;
-    content: "";
-    position: absolute;
-  } */
-
 
 

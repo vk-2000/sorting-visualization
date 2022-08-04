@@ -5,13 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="layout.css">
+    <link rel="stylesheet" href="buttons.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="main">
         <div class="control elevatedBox">
             <div class="logo">
-                <div>Sorting Visualization</div>
+                <div><span style="color: #457b9d;">Sorting</span><span style="color: #e63946;">Visualization</span></div>
             </div>
             <div class="algoDrop">
                 <div class="algoDisplay">Select Algorithm</div>
@@ -31,18 +37,18 @@
             <div class="info">
                 <div class="arrayControl elevatedBox">
                     <div class="selectN">
-                        <div>Enter no of elements : </div>
+                        <div>Enter no of elements</div>
                         <input type="number">
                     </div>
-                    <button class="createArray">Generate best case</button>
-                    <button class="createArray">Generate worst case</button>
-                    <button class="generateRandom">Generate Random</button>
-                    <button class="sort">Sort</button>
+                    <!-- <button class="buttonArray createArray">Generate best case</button>
+                    <button class="buttonArray createArray">Generate worst case</button> -->
+                    <button class="buttonArray generateRandom">Generate Random</button>
+                    <button class="buttonSort sort">Sort</button>
                 </div>
                 <div class="speedControlsContainer elevatedBox">
                     <div>Speed</div>
-                    <button class="speedUp">+</button>
-                    <button class="speedDown">-</button>
+                    <button class="btnAdd speedUp">+</button>
+                    <button class="btnSub speedDown">-</button>
                 </div>
             </div>
             

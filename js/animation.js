@@ -1,10 +1,11 @@
+let sortedColor = "#38b000";
+let baseColor = "#1d3557";
+let compareColor = "#e63946";
 export default class Animation {
-  constructor(animationInfo, arrayDiv, speed) {
+  constructor(animationInfo, arrayDiv, speed, sortedArray) {
     this.animationInfo = animationInfo;
     this.arrayDiv = arrayDiv;
     this.speed = speed;
-  }
-  setSortedArray(sortedArray) {
     this.sortedArray = sortedArray;
   }
   setArrayCopy(arrayCopy) {
@@ -27,7 +28,6 @@ export default class Animation {
   // [2, x, y] --> change the height of bar at position x to y
   async animate() {
     let n = this.animationInfo.length;
-    console.log(this.animationInfo);
     // red array contains the positions of bars which were made red in the previous operation
     let red = [];
     for (let i = 0; i < n; i++) {
@@ -36,15 +36,15 @@ export default class Animation {
       let y = this.animationInfo[i][2];
 
       for (const r of red) {
-        $(this.arrayDiv[r]).css({ backgroundColor: "black" });
+        $(this.arrayDiv[r]).css({ backgroundColor: baseColor });
         if ($(this.arrayDiv[r]).height() == this.sortedArray[r]) {
-          $(this.arrayDiv[r]).css({ backgroundColor: "green" });
+          $(this.arrayDiv[r]).css({ backgroundColor: sortedColor });
         }
       }
 
       if (op === 0) {
-        $(this.arrayDiv[x]).css({ backgroundColor: "red" });
-        $(this.arrayDiv[y]).css({ backgroundColor: "red" });
+        $(this.arrayDiv[x]).css({ backgroundColor: compareColor });
+        $(this.arrayDiv[y]).css({ backgroundColor: compareColor });
         red = [];
         red.push(x);
         red.push(y);
@@ -52,14 +52,14 @@ export default class Animation {
         let h = $(this.arrayDiv[x]).height();
         $(this.arrayDiv[x]).height($(this.arrayDiv[y]).height());
         $(this.arrayDiv[y]).height(h);
-        $(this.arrayDiv[x]).css({ backgroundColor: "red" });
-        $(this.arrayDiv[y]).css({ backgroundColor: "red" });
+        $(this.arrayDiv[x]).css({ backgroundColor: compareColor });
+        $(this.arrayDiv[y]).css({ backgroundColor: compareColor });
         red = [];
         red.push(x);
         red.push(y);
       } else if (op === 2) {
         $(this.arrayDiv[x]).height(y);
-        $(this.arrayDiv[x]).css({ backgroundColor: "red" });
+        $(this.arrayDiv[x]).css({ backgroundColor: compareColor });
         red = [];
         red.push(x);
       }
