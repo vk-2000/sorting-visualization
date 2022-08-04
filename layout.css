@@ -5,6 +5,7 @@ body {
     background-color: whitesmoke;
     padding: 0 20px;
     font-family: 'Roboto', sans-serif;
+    user-select: none;
 }
 .control{
     display: flex;
@@ -27,6 +28,7 @@ body {
     position: relative;
     flex-basis: 45%;
     margin: 10px;
+    cursor: pointer;
 }
 .algos{
     display: flex;
