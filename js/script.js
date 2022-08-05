@@ -30,8 +30,10 @@ function createDivs(array) {
       width: widthDiv,
       margin: "1px",
     });
-    // $(div).addClass("bar");
-    // $(div).attr("value", `${$(div).height()}`);
+    $(div).addClass("bar");
+    if (array.length <= 18) {
+      $(div).text(array[i]);
+    }
     arrayContainer.append(div);
   }
   arrayDiv = $(arrayContainer).children();

@@ -30,21 +30,27 @@ body {
     margin: 10px;
     cursor: pointer;
 }
+.algoDrop:hover {
+    background-color: #a8dadc;
+}
 .algos{
     display: flex;
     flex-direction: column;
     position: absolute;
+    border-top: 1px solid #457b9d;
     top: 100%;
     width: 100%;
     text-align: center;
-    background-color: #f1faee;
+    background-color: #a8dadc;
     z-index: 1;
+    border-radius: 0 0 10px 10px;
 }
 .algos > div {
     padding: 10px; 
 }
 .algos > div:hover {
-    background-color: #a8dadc;
+    background-color: #457b9d;
+    color: white;
 }
 .hidden{
     display: none;
@@ -117,6 +123,10 @@ body {
     align-items: center;
     height: 85vh;
     margin: 10px 0px 10px 10px;
+}
+.bar {
+    color: white;
+    text-align: center;
 }
 
 

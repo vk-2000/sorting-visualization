@@ -50,8 +50,11 @@ export default class Animation {
         red.push(y);
       } else if (op === 1) {
         let h = $(this.arrayDiv[x]).height();
+        let text = $(this.arrayDiv[x]).text();
         $(this.arrayDiv[x]).height($(this.arrayDiv[y]).height());
+        $(this.arrayDiv[x]).text($(this.arrayDiv[y]).text());
         $(this.arrayDiv[y]).height(h);
+        $(this.arrayDiv[y]).text(text);
         $(this.arrayDiv[x]).css({ backgroundColor: compareColor });
         $(this.arrayDiv[y]).css({ backgroundColor: compareColor });
         red = [];
@@ -59,6 +62,7 @@ export default class Animation {
         red.push(y);
       } else if (op === 2) {
         $(this.arrayDiv[x]).height(y);
+        $(this.arrayDiv[x]).text(y);
         $(this.arrayDiv[x]).css({ backgroundColor: compareColor });
         red = [];
         red.push(x);
