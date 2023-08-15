@@ -7,8 +7,8 @@ let widthDiv;
 let array = [];
 let arrayCopy;
 let arrayDiv;
-let animate;
-let baseColor = "#1d3557";
+let animateObject;
+const baseColor = "#1d3557";
 
 function createRandomArray(n) {
   array = [];
@@ -31,12 +31,46 @@ function createDivs(array) {
       margin: "1px",
     });
     $(div).addClass("bar");
-    if (array.length <= 18) {
-      $(div).text(array[i]);
-    }
+    // if (array.length <= 18) {
+    //   $(div).text(array[i]);
+    // }
     arrayContainer.append(div);
   }
   arrayDiv = $(arrayContainer).children();
+}
+
+async function performAnimation(algoNumber = -1) {
+  if (algoNumber == -1) {
+    alert("Select algorithm");
+    return;
+  }
+  let animationInfo = [];
+
+  switch (algoNumber) {
+    case 0:
+      Sorting.selectionSort(array, animationInfo);
+      break;
+    case 1:
+      Sorting.bubbleSort(array, animationInfo);
+      break;
+    case 2:
+      Sorting.insertionSort(array, animationInfo);
+      break;
+    case 3:
+      Sorting.mergeSort(array, 0, array.length - 1, animationInfo);
+      break;
+    case 4:
+      Sorting.quickSort(array, 0, array.length - 1, animationInfo);
+      break;
+    case 5:
+      Sorting.heapSort(array, animationInfo);
+      break;
+    default:
+      break;
+  }
+  animateObject = new Animation(animationInfo, arrayDiv, 100, array);
+  console.log(animationInfo);
+  await animateObject.animate();
 }
 
 $(document).ready(function () {
@@ -68,48 +102,38 @@ $(document).ready(function () {
 
   $(".speedUp").click(function (e) {
     e.preventDefault();
-    animate.increaseSpeed(50);
+    animateObject.increaseSpeed(50);
   });
   $(".speedDown").click(function (e) {
     e.preventDefault();
-    animate.decreaseSpeed(50);
+    animateObject.decreaseSpeed(50);
   });
 
-  $(".sort").click(function () {
-    animate = null;
-    if (algoNumber == -1) {
-      alert("Select algorithm");
-      return;
-    }
-    let animationInfo = [];
-
-    switch (algoNumber) {
-      case 0:
-        Sorting.selectionSort(array, animationInfo);
-        break;
-      case 1:
-        Sorting.bubbleSort(array, animationInfo);
-        break;
-      case 2:
-        Sorting.insertionSort(array, animationInfo);
-        break;
-      case 3:
-        Sorting.mergeSort(array, 0, array.length - 1, animationInfo);
-        break;
-      case 4:
-        Sorting.quickSort(array, 0, array.length - 1, animationInfo);
-        break;
-      case 5:
-        Sorting.heapSort(array, animationInfo);
-        break;
-      default:
-        break;
-    }
-    animate = new Animation(animationInfo, arrayDiv, 100, array);
-    console.log(animationInfo);
-    animate.animate();
+  $(".sort").click(async function () {
+    $(".sort").attr("disabled", true);
+    $(".sort").addClass("disabled");
+    await performAnimation(algoNumber);
+    $(".sort").attr("disabled", false);
+    $(".sort").removeClass("disabled");
   });
 });
+
+// if the screen is mobile just show that the site is not supported
+if (
+  /Android|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  )
+) {
+  $(".container").children().remove();
+  $(".algoDrop").remove();
+  $(".info").remove();
+  // add css property to logo
+  $(".logo").css({
+    width: "100%",
+  });
+  // $(".control").remove();
+  $(".container").text("Site not supported on mobile");
+}
 
 function displayInfo(comparisions) {
   $(".info").text("No of comparisions : " + comparisions);

@@ -27,13 +27,11 @@ export default class Animation {
   // [1, x, y] --> swap bars at position x and y
   // [2, x, y] --> change the height of bar at position x to y
   async animate() {
-    let n = this.animationInfo.length;
+    const n = this.animationInfo.length;
     // red array contains the positions of bars which were made red in the previous operation
     let red = [];
-    for (let i = 0; i < n; i++) {
-      let op = this.animationInfo[i][0];
-      let x = this.animationInfo[i][1];
-      let y = this.animationInfo[i][2];
+    for (const info of this.animationInfo) {
+      const [op, x, y] = info;
 
       for (const r of red) {
         $(this.arrayDiv[r]).css({ backgroundColor: baseColor });
@@ -45,27 +43,18 @@ export default class Animation {
       if (op === 0) {
         $(this.arrayDiv[x]).css({ backgroundColor: compareColor });
         $(this.arrayDiv[y]).css({ backgroundColor: compareColor });
-        red = [];
-        red.push(x);
-        red.push(y);
+        red = [x, y];
       } else if (op === 1) {
         let h = $(this.arrayDiv[x]).height();
-        let text = $(this.arrayDiv[x]).text();
         $(this.arrayDiv[x]).height($(this.arrayDiv[y]).height());
-        $(this.arrayDiv[x]).text($(this.arrayDiv[y]).text());
         $(this.arrayDiv[y]).height(h);
-        $(this.arrayDiv[y]).text(text);
         $(this.arrayDiv[x]).css({ backgroundColor: compareColor });
         $(this.arrayDiv[y]).css({ backgroundColor: compareColor });
-        red = [];
-        red.push(x);
-        red.push(y);
+        red = [x, y];
       } else if (op === 2) {
         $(this.arrayDiv[x]).height(y);
-        $(this.arrayDiv[x]).text(y);
         $(this.arrayDiv[x]).css({ backgroundColor: compareColor });
-        red = [];
-        red.push(x);
+        red = [x];
       }
 
       await this.#sleep(this.speed);

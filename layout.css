@@ -16,8 +16,12 @@ body {
 }
 .logo > div {
     font-size: 2rem;
-    padding: 50px;
+    padding: 1em;
+    width: 100%;
     font-family: 'Oswald', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .algoDrop{
     /* background-color: aliceblue; */
