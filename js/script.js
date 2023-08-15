@@ -97,6 +97,8 @@ $(document).ready(function () {
       return;
     }
     widthDiv = 500 / n;
+    $(".sort").attr("disabled", false);
+    $(".sort").removeClass("disabled");
     createRandomArray(n);
   });
 
